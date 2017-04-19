@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   ActivityIndicator,
   Text,
-  TouchableHighlight,
+  StyleSheet,
   Image,
   ListView,
   View
@@ -17,66 +17,73 @@ class SearchResult extends Component {
     });
     this.state = {
       dataSource: ds.cloneWithRows(),
-      showProgress: true
+      showProgress: true,
+      searchQuery: props.searchQuery,
+      respositories: ''
     }
   }
 
   componentDidMount() {
-    this.feedItems();
+    this.doSearch();
   }
 
-  fetchFeed() {
-    require('./AuthService').getAuthInfo((err, authInfo) => {
-      let url = `https://api/github.com/users/${authInfo.user.login}/received_events`;
-      fetch(url, {
-        headers: authInfo.header
-      })
-        .then((response) => response.json()
-        )
-        .then((responseData) => {
-          let feedItems = responseData.filter((ev) =>
-            ev.type == 'PushEvent');
-          this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(feedItems),
-            showProgress: false
-          })
+  doSearch() {
+    encodeURIComponent
+    let url = `https://api.github.com/search/repositories?q=${encodeURIComponent(this.state.searchQuery)}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          respositories: responseData.respositories,
+          dataSource: this.state.dataSource.cloneWithRows(responseData.items)
         })
-    });
+      })
+      .finally(() => {
+        this.setState({
+          showProgress: false
+        })
+      });
   }
 
   renderRow(rowData) {
     return (
-      <TouchableHighlight
-        onPress={() => this.pressRow(rowData)}
-        underlayColor='#ddd'>
+      <View style={{
+        padding: 20,
+        borderColor: '#D7D7D7',
+        borderBottomWidth: 1,
+        backgroundColor: '#fff'
+      }}>
+        <Text style={{ fontSize: 20, fontWeight: '600' }}>{rowData.full_name}</Text>
         <View style={{
           flex: 1,
           flexDirection: 'row',
-          padding: 20,
-          alignItems: 'center',
-          borderColor: '#D7D7D7',
-          borderBottomWidth: 1
+          justifyContent: 'space-between',
+          marginTop: 20,
+          marginBottom: 20
         }}>
-          <Image
-            source={{ uri: rowData.actor.avatar_url }}
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 18
-            }}
-          />
-          <View style={{
-            paddingLeft: 20
-          }}>
-            <Text style={{ backgroundColor: '#fff' }}>{moment(rowData.created_at).fromNow()}</Text>
-            <Text style={{ backgroundColor: '#fff' }}>{rowData.actor.login} pushed to</Text>
-            <Text style={{ backgroundColor: '#fff' }}>{rowData.payload.ref.replace('refs/heads/', '')}</Text>
-            <Text style={{ backgroundColor: '#fff' }}> at
-            <Text style={{ fontWeight: 600 }}>{rowData.repo.name}</Text>
+          <View style={styles.repoCell}>
+            <Image source={require('./images/search.png')}
+              style={styles.repoCellIcon} />
+            <Text style={styles.repoCellLabel}>
+              {rowData.stargazers_count}
+            </Text>
+          </View>
+          <View style={styles.repoCell}>
+            <Image source={require('./images/search.png')}
+              style={styles.repoCellIcon} />
+            <Text style={styles.repoCellLabel}>
+              {rowData.forks}
+            </Text>
+          </View>
+          <View style={styles.repoCell}>
+            <Image source={require('./images/search.png')}
+              style={styles.repoCellIcon} />
+            <Text style={styles.repoCellLabel}>
+              {rowData.open_issues}
             </Text>
           </View>
         </View>
-      </TouchableHighlight>
+      </View>
     );
   }
 
@@ -106,4 +113,18 @@ class SearchResult extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  repoCell: {
+    width: 50,
+    alignItems: 'center'
+  },
+  repoCellIcon: {
+    width: 20,
+    height: 20
+  },
+  repoCellLabel: {
+    textAlign: 'center'
+  }
+});
 export default SearchResult;
