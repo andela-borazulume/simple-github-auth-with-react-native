@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 import Feed from './Feed';
-import Search from './Search';
+import SearchResult from './SearchResult';
 
 class AppContainer extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class AppContainer extends Component {
           <NavigatorIOS
             style={{ flex: 1 }}
             initialRoute={{
-              component: Search,
+              component: SearchResult,
               title: 'Search'
             }} />
         </TabBarIOS.Item>
