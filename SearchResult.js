@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
-import PushPayload from './PushPayload'
 import {
   ActivityIndicator,
   Text,
@@ -10,7 +8,7 @@ import {
   View
 } from 'react-native';
 
-class Feed extends Component {
+class SearchResult extends Component {
   constructor(props) {
     super(props);
 
@@ -43,17 +41,6 @@ class Feed extends Component {
             showProgress: false
           })
         })
-    });
-  }
-
-  pressRow(rowData) {
-    console.log(rowData)
-    this.props.navigator.push({
-      title: 'Push Event',
-      component: PushPayload,
-      passprops: {
-        pushEvent: rowData
-      }
     });
   }
 
@@ -119,4 +106,4 @@ class Feed extends Component {
     );
   }
 }
-export default Feed;
+export default SearchResult;

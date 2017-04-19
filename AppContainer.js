@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {
+  NavigatorIOS,
   StyleSheet,
   Text,
   TabBarIOS,
   View
 } from 'react-native';
 import Feed from './Feed';
+import Search from './Search';
 
 class AppContainer extends Component {
   constructor(props) {
@@ -24,14 +26,24 @@ class AppContainer extends Component {
           selected={this.state.selectedTab == 'feed'}
           icon={require('./images/feed.png')}
           onPress={() => { this.setState({ selectedTab: 'feed' }) }}>
-          <Feec/>
+          <NavigatorIOS
+            style={{ flex: 1 }}
+            initialRoute={{
+              component: Feed,
+              title: 'Feed'
+            }} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title='Search'
           selected={this.state.selectedTab == 'search'}
           icon={require('./images/feed.png')}
           onPress={() => { this.setState({ selectedTab: 'search' }) }}>
-          <Text style={styles.welcome}> Tab 2</Text>
+          <NavigatorIOS
+            style={{ flex: 1 }}
+            initialRoute={{
+              component: Search,
+              title: 'Search'
+            }} />
         </TabBarIOS.Item>
       </TabBarIOS>
     );

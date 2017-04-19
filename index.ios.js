@@ -55,7 +55,11 @@ export default class simpleIOSApp extends Component {
     }
     if (this.state.isLoggedIn) {
       return (
-        <AppContainer/>
+        <View>
+          <Text>I am here oooo</Text>  
+          {/* add AppContainer here */}        
+        </View>
+      
       );
     } else {
       return(
