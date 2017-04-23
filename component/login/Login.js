@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import buffer from 'buffer';
-import authService from './AuthService';
+import authService from '../../utils/AuthService';
 import {
   ActivityIndicator,
   Image,
@@ -50,7 +50,7 @@ class Login extends Component {
       <View style={styles.container}>
         <Image
           style={styles.logo}
-          source={require('./images/Octocat.jpg')}>
+          source={require('../../images/Octocat.jpg')}>
         </Image>
         <Text style={styles.heading}>Github Browser</Text>
         <TextInput

@@ -28,7 +28,7 @@ class Feed extends Component {
   }
 
   fetchFeed() {
-    require('./AuthService').getAuthInfo((err, authInfo) => {
+    require('../../utils/AuthService').getAuthInfo((err, authInfo) => {
       let url = "https://api.github.com/users/andela-borazulume/received_events";
       fetch(url)
         .then((response) => response.json()

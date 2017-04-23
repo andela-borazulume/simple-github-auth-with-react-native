@@ -63,16 +63,6 @@ class PushPayload extends Component {
         </Text>
         <Text><Text style={styles.bold}>{this.state.pushEvent.actor.login}</Text> pushed to</Text>
         <Text>at {this.state.pushEvent.repo.name}</Text>
-        {/*<Text style={{
-          paddingTop: 40,
-          fontSize: 20
-        }}>{this.state.pushEvent.payload.commits.length} commits
-        </Text>
-
-       <ListView
-          contentInset='-50'
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}/>*/}
       </View>
     );
   }

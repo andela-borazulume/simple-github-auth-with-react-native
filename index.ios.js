@@ -5,9 +5,6 @@
  */
 
 import React, { Component } from 'react';
-import Login from "./Login";
-import AppContainer from "./AppContainer";
-
 import {
   ActivityIndicator,
   AppRegistry,
@@ -15,7 +12,11 @@ import {
   Text,
   View
 } from 'react-native';
-import AuthService from './AuthService';
+
+import Login from "./component/login/Login";
+import AppContainer from "./component/container/AppContainer";
+
+import AuthService from './utils/AuthService';
 
 export default class simpleIOSApp extends Component {
   constructor(props) {

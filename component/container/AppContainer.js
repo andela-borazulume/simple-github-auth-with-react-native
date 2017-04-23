@@ -6,8 +6,8 @@ import {
   TabBarIOS,
   View
 } from 'react-native';
-import Feed from './Feed';
-import Search from './Search';
+import Feed from '../feed/Feed';
+import Search from '../search/Search';
 
 class AppContainer extends Component {
   constructor(props) {
@@ -23,13 +23,10 @@ class AppContainer extends Component {
         <TabBarIOS.Item
           title="Feed"
           selected={this.state.selectedTab == 'feed'}
-          icon={require('./images/feed.png')}
-          onPress={() => this.setState({ selectedTab: 'feed' })}
-        >
+          icon={require('../../images/feed.png')}
+          onPress={() => this.setState({ selectedTab: 'feed' })}>
           <NavigatorIOS
-            style={{
-              flex: 1
-            }}
+            style={{ flex: 1 }}
             initialRoute={{
               component: Feed,
               title: 'Feed'
@@ -39,9 +36,8 @@ class AppContainer extends Component {
         <TabBarIOS.Item
           title="Search"
           selected={this.state.selectedTab == 'search'}
-          icon={require('./images/search.png')}
-          onPress={() => this.setState({ selectedTab: 'search' })}
-        >
+          icon={require('../../images/search.png')}
+          onPress={() => this.setState({ selectedTab: 'search' })} >
           <NavigatorIOS
             style={{
               flex: 1
