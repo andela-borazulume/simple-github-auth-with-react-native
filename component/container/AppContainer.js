@@ -23,7 +23,7 @@ class AppContainer extends Component {
         <TabBarIOS.Item
           title="Feed"
           selected={this.state.selectedTab == 'feed'}
-          icon={require('../../images/feed.png')}
+          icon={require('../../images/feed1.png')}
           onPress={() => this.setState({ selectedTab: 'feed' })}>
           <NavigatorIOS
             style={{ flex: 1 }}

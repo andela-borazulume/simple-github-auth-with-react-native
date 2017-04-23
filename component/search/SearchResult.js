@@ -61,14 +61,14 @@ class SearchResult extends Component {
           marginBottom: 20
         }}>
           <View style={styles.repoCell}>
-            <Image source={require('../../images/search.png')}
+            <Image source={require('../../images/star.png')}
               style={styles.repoCellIcon} />
             <Text style={styles.repoCellLabel}>
               {rowData.stargazers_count}
             </Text>
           </View>
           <View style={styles.repoCell}>
-            <Image source={require('../../images/search.png')}
+            <Image source={require('../../images/fork.png')}
               style={styles.repoCellIcon} />
             <Text style={styles.repoCellLabel}>
               {rowData.forks}

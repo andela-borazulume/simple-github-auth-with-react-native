@@ -28,23 +28,22 @@ class Feed extends Component {
   }
 
   fetchFeed() {
-    require('../../utils/AuthService').getAuthInfo((err, authInfo) => {
-      let url = "https://api.github.com/users/andela-borazulume/received_events";
-      fetch(url)
-        .then((response) => response.json()
-        )
-        .then((responseData) => {
-          let feedItems = responseData.filter((ev) =>
-            ev.type == 'WatchEvent');
-          this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(feedItems),
-            showProgress: false
-          })
+    let url = "https://api.github.com/users/andela-borazulume/received_events";
+    fetch(url)
+      .then((response) => response.json()
+      )
+      .then((responseData) => {
+        console.log(responseData, 'data is here')
+        let feedItems = responseData.filter((ev) =>
+          ev.type == 'WatchEvent');
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(feedItems),
+          showProgress: false
         })
-    });
+      })
   }
 
-  pressRow(rowData) {    
+  pressRow(rowData) {
     this.props.navigator.push({
       title: 'Push Event',
       component: PushPayload,
