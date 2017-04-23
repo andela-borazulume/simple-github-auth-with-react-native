@@ -16,7 +16,7 @@ class SearchResult extends Component {
       rowHasChanged: (r1, r2) => r1 != r2
     });
     this.state = {
-      dataSource: ds.cloneWithRows(),
+      dataSource: ds,
       showProgress: true,
       searchQuery: props.searchQuery,
       respositories: ''
@@ -28,7 +28,6 @@ class SearchResult extends Component {
   }
 
   doSearch() {
-    encodeURIComponent
     let url = `https://api.github.com/search/repositories?q=${encodeURIComponent(this.state.searchQuery)}`;
     fetch(url)
       .then((response) => response.json())
@@ -88,6 +87,7 @@ class SearchResult extends Component {
   }
 
   render() {
+    console.log('inside the search')
     if (this.state.showProgress) {
       return (
         <View style={{
@@ -106,7 +106,7 @@ class SearchResult extends Component {
         justifyContent: 'flex-start'
       }}>
         <ListView
-          dataSource={this.dataSource}
+          dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
         ></ListView>
       </View>

@@ -1,7 +1,7 @@
 // 'use strict';
 
 import React, { Component } from 'react';
-import SearchResult from 'SearchResult';
+import SearchResult from './SearchResult';
 import {
   StyleSheet,
   Text,

@@ -17,8 +17,8 @@ class PushPayload extends Component {
       rowHasChanged: (r1, r2) => r1 != r2
     });
     this.state = {
-      dataSource: ds.cloneWithRows(props.pushEvent.payload.commits),
-      pushEvent: props.pushEvent
+      dataSource: ds.cloneWithRows(props.route.passprops.pushEvent),
+      pushEvent: props.route.passprops.pushEvent
     }
   }
 
@@ -33,12 +33,13 @@ class PushPayload extends Component {
         paddingTop: 20,
         paddingBottom: 20
       }}>
-      <Text>{rowData.sha.subString(0, 6)} - {rowData.message}</Text>
+      {/*<Text>{rowData.sha.subString(0, 6)} - {rowData.message}</Text>*/}
       </View>
     );
   }
 
   render() {
+    console.log(this.state.pushEvent, 'here here')
     return (
       <View style={{
         flex: 1,
@@ -46,7 +47,7 @@ class PushPayload extends Component {
         justifyContent: 'flex-start',
         alignItems: 'center'}}>
 
-        <image
+        <Image
           source={{uri: this.state.pushEvent.actor.avatar_url}}
           style={{
             width: 120,
@@ -54,25 +55,24 @@ class PushPayload extends Component {
             borderRadius: 60
           }}/>
 
-        <Text style={{
+         <Text style={{
           paddingTop: 20,
           paddingBottom: 20,
           fontSize: 20
         }}>{moment(this.state.pushEvent.created_at).fromNow()}
         </Text>
         <Text><Text style={styles.bold}>{this.state.pushEvent.actor.login}</Text> pushed to</Text>
-        <Text><Text style={styles.bold}>{this.state.pushEvent.payload.ref.replace('/refs/heads/', '')}</Text></Text>
         <Text>at {this.state.pushEvent.repo.name}</Text>
-        <Text style={{
+        {/*<Text style={{
           paddingTop: 40,
           fontSize: 20
         }}>{this.state.pushEvent.payload.commits.length} commits
         </Text>
 
-        <ListView
+       <ListView
           contentInset='-50'
           dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}/>
+          renderRow={this.renderRow.bind(this)}/>*/}
       </View>
     );
   }

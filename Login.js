@@ -33,8 +33,6 @@ class Login extends Component {
       },results));
 
       if (results.success && this.props.onLogin) {
-        console.log('getting here');
-        console.log('loggedIn', this.state.isLoggedIn);
         this.props.onLogin();
       }
     });

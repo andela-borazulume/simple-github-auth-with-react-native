@@ -25,10 +25,8 @@ export default class simpleIOSApp extends Component {
       checkingAuth: true
     }
   }
-  componentDidMount () {
-    console.log('getting here')
-    AuthService.getAuthInfo((err, authInfo) => {
-      console.log(err, 'authInfo')
+  componentDidMount() {
+   AuthService.getAuthInfo((err, authInfo)=> {
       this.setState({
         checkingAuth: false,
         isLoggedIn: authInfo != null
@@ -37,33 +35,28 @@ export default class simpleIOSApp extends Component {
   }
 
   onLogin() {
-    console.log(this.state,'islogged in');
-    this.setState({ isLoggedIn: true });
+    this.setState({ isLoggedIn: true })
   }
 
   render() {
-    if (this.state.checkingAuth) {
+    if(this.state.checkingAuth){
       return (
         <View style={styles.container}>
           <ActivityIndicator
             animating={true}
-            size='large'
-            style={styles.loader}>
-          </ActivityIndicator>
+            size="large"
+            style={styles.loader} />
         </View>
       );
     }
-    if (this.state.isLoggedIn) {
+
+   if(this.state.isLoggedIn){
       return (
-        <View>
-          <Text>I am here oooo</Text>  
-          {/* add AppContainer here */}        
-        </View>
-      
+        <AppContainer />
       );
-    } else {
-      return(
-        <Login onLogin={this.onLogin} />
+    }else{
+      return (
+        <Login onLogin={this.onLogin.bind(this)} />
       );
     }
   }

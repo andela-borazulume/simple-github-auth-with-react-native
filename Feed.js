@@ -18,26 +18,24 @@ class Feed extends Component {
       rowHasChanged: (r1, r2) => r1 != r2
     });
     this.state = {
-      dataSource: ds.cloneWithRows(),
+      dataSource: ds,
       showProgress: true
     }
   }
 
   componentDidMount() {
-    this.feedItems();
+    this.fetchFeed();
   }
 
   fetchFeed() {
     require('./AuthService').getAuthInfo((err, authInfo) => {
-      let url = `https://api/github.com/users/${authInfo.user.login}/received_events`;
-      fetch(url, {
-        headers: authInfo.header
-      })
+      let url = "https://api.github.com/users/andela-borazulume/received_events";
+      fetch(url)
         .then((response) => response.json()
         )
         .then((responseData) => {
           let feedItems = responseData.filter((ev) =>
-            ev.type == 'PushEvent');
+            ev.type == 'WatchEvent');
           this.setState({
             dataSource: this.state.dataSource.cloneWithRows(feedItems),
             showProgress: false
@@ -46,8 +44,7 @@ class Feed extends Component {
     });
   }
 
-  pressRow(rowData) {
-    console.log(rowData)
+  pressRow(rowData) {    
     this.props.navigator.push({
       title: 'Push Event',
       component: PushPayload,
@@ -83,9 +80,8 @@ class Feed extends Component {
           }}>
             <Text style={{ backgroundColor: '#fff' }}>{moment(rowData.created_at).fromNow()}</Text>
             <Text style={{ backgroundColor: '#fff' }}>{rowData.actor.login} pushed to</Text>
-            <Text style={{ backgroundColor: '#fff' }}>{rowData.payload.ref.replace('refs/heads/', '')}</Text>
             <Text style={{ backgroundColor: '#fff' }}> at
-            <Text style={{ fontWeight: 600 }}>{rowData.repo.name}</Text>
+            <Text style={{ fontWeight: "600" }}>{rowData.repo.name}</Text>
             </Text>
           </View>
         </View>
@@ -112,8 +108,9 @@ class Feed extends Component {
         justifyContent: 'flex-start'
       }}>
         <ListView
-          dataSource={this.dataSource}
+          dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
+          enableEmptySections={true}
         ></ListView>
       </View>
     );
